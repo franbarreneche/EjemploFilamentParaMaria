@@ -2,7 +2,7 @@
     <form wire:submit="submit">
         {{ $this->form }}
 
-        <button type="submit">
+        <button type="submit" class="btn btn-primary">
             Submit
         </button>
     </form>

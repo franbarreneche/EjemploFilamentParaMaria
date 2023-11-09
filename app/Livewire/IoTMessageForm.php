@@ -2,7 +2,9 @@
 
 namespace App\Livewire;
 
+use App\Actions\SendIoTMessageAction;
 use Filament\Forms;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
@@ -15,6 +17,10 @@ class IoTMessageForm extends Component implements HasForms
 
     public ?array $data = [];
 
+    // public function __construct(private readonly SendIoTMessageAction $sendIoTMessageAction)
+    // {
+    // }
+
     public function mount()
     {
         $this->form->fill();
@@ -24,16 +30,17 @@ class IoTMessageForm extends Component implements HasForms
     {
         return $form
             ->schema([
-                //
+                TextInput::make('name')->label('Nombre')->integer()->required(),
+                TextInput::make('surname')->label('Apellido')->integer()->required(),
             ])
             ->statePath('data');
     }
 
-    public function submit(): void
+    public function submit(SendIoTMessageAction $sendIoTMessageAction): void
     {
         $data = $this->form->getState();
 
-        //
+        $sendIoTMessageAction->execute($data);
     }
 
     public function render(): View
